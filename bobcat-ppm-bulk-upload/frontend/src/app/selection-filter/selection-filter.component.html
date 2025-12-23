@@ -1,0 +1,26 @@
+<div class="html-picker">
+    <div role="presentation" class="ag-mini-filter ag-labeled ag-label-align-left ag-text-field ag-input-field"
+        ref="eMiniFilter">
+        <div ref="eLabel" class="ag-input-field-label ag-label ag-hidden ag-text-field-label" role="presentation"></div>
+        <div ref="eWrapper" class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper" role="presentation">
+            <input ref="eInput" class="ag-input-field-input ag-text-field-input" type="text" id="ag-2061-input"
+                aria-label="Search filter values" placeholder="Search..." [(ngModel)]="searchText"  >
+        </div>
+    </div>
+
+    <div class="filter-body-main-div">
+        <div class="filter-body-sub-div" *ngIf="optionList?.length">
+            <div class="filter-list" *ngIf="!searchText">
+                <label class="mr-2" for="">(Select All)</label>
+                <input onkeypress="" class="mr-2" type="checkbox" name="chk" [checked]="selectAll"
+                    (click)="selectAllList();updateFilter()">
+            </div>
+            <ng-container *ngFor="let item of optionList | linearSearch: searchText">
+                <div class="filter-list" *ngIf="item">
+                    <label class="mr-2">{{item.label}}</label>
+                    <input class="mr-2" type="checkbox" [(ngModel)]="item.checked" (ngModelChange)="updateFilter();">
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

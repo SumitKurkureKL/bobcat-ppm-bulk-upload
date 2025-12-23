@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "message": null,
+  "data": {
+    "appConfig": "eyJwcmltYXJ5QnRuQ29sb3Ii0iIjMG",
+    "full_name": "SekhmetAdmin",
+    "license_status": "true",
+    "mediaBreakPoint": "md",
+    "product_access": "machine",
+    "projectDetails": "UiPzQKKU1oWojMEJNgb0XAMlz",
+    "project_id": "project_265",
+    "project_type": "customer",
+    "themeDetails": "flourish-theme",
+    "userDetails": "ZiKG+6YKPU1m8sbslPyzqoixSBBx",
+    "user_role_id": "FpjKXEYrJTJtJBKwQJQjdg",
+    "user_type": "",
+    "username": "SekhmetAdmin",
+    "vSign": "Y+YKXk8/w5fPH1E3wZcQZwQVPWVPtYxssl"
+  }
+}

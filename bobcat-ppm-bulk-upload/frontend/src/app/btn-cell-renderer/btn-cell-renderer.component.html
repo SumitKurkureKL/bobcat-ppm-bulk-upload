@@ -1,0 +1,29 @@
+<ng-container *ngFor="let eachAction of actions">
+    <button type="button" class="btn" (click)="onClick(eachAction,moreActionsPopover)"  container="body" *ngIf="!rowData?.disabled_actions || !rowData.disabled_actions.includes(eachAction['icon-class'])"
+    [ngbPopover]="moreActionsTemplate"
+    container="body"
+    placement="left-top"
+    autoClose="false"
+    triggers="manual"
+    popoverClass="customPopoverActions"
+    #moreActionsPopover="ngbPopover" [hidden]="hidden">
+      <span>{{eachAction['label']}}</span>
+      <span class="fa fs-1 openModal actionButton" [ngClass]="eachAction.class"
+      *ngIf="eachAction.class && (!disabledActions.includes(eachAction.type || eachAction.action))"
+      [ngbTooltip]="eachAction['tooltip']" placement="bottom" container="body"></span>
+    </button>
+  </ng-container>
+
+  <ng-template #moreActionsTemplate>
+    <div class="shadow rounded menuDropdown" *ngIf="popoverAction.options?.length">
+      <div *ngFor="let option of popoverAction.options">
+        <div onkeypress="" (click)="$event.stopPropagation();$event.preventDefault();onClick(option);" class="my-2 d-inline-flex">
+          <div [attr.title]="option['tooltip']" class="{{option['class']}} mx-2 actionItemsWidth">
+            <span class="action-color">
+              {{option.label}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>

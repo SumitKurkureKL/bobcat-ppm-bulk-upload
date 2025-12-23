@@ -1,0 +1,32 @@
+<div class="external-act external-act-wrapper pr-0" *ngIf="extAction?.externalActions">
+    <div class="select_left" *ngFor="let each_action of extAction.leftExternalActions">
+        <span *ngIf="each_action.type === 'icon'" class="only-icon-btn" [class]="each_action.icon_class" [id]="each_action.action" (click)="emitAction(each_action)"></span>
+        <button type="button" *ngIf="each_action.type === 'button'" [id]="each_action.action"
+            class="button-wrapper btn {{each_action.btn_class ||  'btn-primary'}} {{each_action.disabled ? 'cursor-not-allowed-wrapper':''}}" (click)="emitAction(each_action)" [disabled]="each_action.disabled">
+            <span class="{{each_action.icon_class || 'fa fa-plus-circle'}}"></span>{{each_action.label}}
+        </button>
+        <div *ngIf="each_action.type === 'checkbox'" [id]="each_action.action">
+            <input type="checkbox" (change)="each_action.checked = $event.target.checked; emitAction(each_action, $event)" [(ngModel)]="each_action.checked" >
+            <label for="scales" *ngIf="each_action.label">{{each_action.label}}</label>
+        </div>
+    </div>
+    <div *ngIf="template" class="select_left">
+        <ng-container [ngTemplateOutlet]="template"></ng-container>
+    </div>
+    <input *ngIf="extAction?.enableGlobalSearch" class="form-control filter-item h-100" autocomplete="off" type="text" [id]="fieldId ? fieldId : 'searchField'"
+        name="searchField" [(ngModel)]="externalSearch" (ngModelChange)="emitAction({global_search:externalSearch})"
+         placeholder="Search">
+    <ng-container *ngIf="!extAction?.hideExtAction">
+        <div style="display: contents;" *ngFor="let each_action of extAction.externalActions">
+            <span *ngIf="each_action.type === 'icon'" class="only-icon-btn mx-1" [class]="each_action.icon_class"
+                [id]="each_action.action" (click)="emitAction(each_action)"></span>
+            <button type="button" *ngIf="each_action.type === 'button'" [id]="each_action.action"
+                class="button-wrapper btn {{each_action.btn_class ||  'btn-primary'}} {{each_action.disabled ? 'cursor-not-allowed-wrapper':''}}"
+                (click)="emitAction(each_action)" [disabled]="each_action.disabled" [ngbTooltip]="each_action.tooltip">
+                <span class="{{each_action.icon_class || 'fa fa-plus-circle'}}"></span>{{each_action.label}}
+            </button>
+            <!-- <kl-auto-refresh *ngIf="each_action.type === 'auto_refresh'" [action_interval]="each_action"
+                (refreshEmitter)="emitAction($event)"></kl-auto-refresh> -->
+        </div>
+    </ng-container>
+</div>

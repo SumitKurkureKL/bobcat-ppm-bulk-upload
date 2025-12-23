@@ -1,0 +1,39 @@
+.filter-body-main-div {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.filter-body-sub-div {
+    width: 100%;
+    overflow: auto;
+    height: 144px;
+}
+
+.filter-list {
+    margin: 0 12px;
+    display: flex;
+
+    label {
+        white-space: nowrap;
+        font-size: 13px;
+        font-family: Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+        order: 1;
+        margin-top: 4px;
+    }
+}
+
+input[type=checkbox] {
+    margin: 4px 0 0;
+    line-height: normal;
+    width: 15px;
+    height: 15px;
+    outline-style: auto;
+    outline-color: #ACACAC;
+}
+
+input[type=checkbox]:checked {
+    margin: 4px 0 0;
+    line-height: normal;
+    width: 15px;
+    height: 15px;
+}

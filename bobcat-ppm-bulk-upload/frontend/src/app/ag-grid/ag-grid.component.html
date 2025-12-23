@@ -1,0 +1,21 @@
+<div class="external-act" *ngIf="agGridOptions?.externalActions">
+</div>
+<div *ngIf="agGridOptions">
+    <ng-container *ngIf="agGridOptions.externalActions">
+        <app-external-action [extAction]="agGridOptions" [template]="externalTemplate" (externalActionEmitter)="onSelectionChanged($event)"></app-external-action>
+    </ng-container>
+</div>
+<div class="ag-grid-table-component">
+    <ag-grid-angular class="w-100" *ngIf="agGridOptions?.columnDefs"
+        [style.height]="agGridOptions?.height || 'calc(100vh - 330px)'"  [statusBar]="agGridOptions?.statusBar||[]"
+        [ngClass]="agGridOptions.theme || 'ag-theme-alpine'" [gridOptions]="agGridOptions"
+        (gridReady)="onGridReady($event)" (cellClicked)="onCellClicked($event)"
+        [overlayLoadingTemplate]="overlayLoadingTemplate" [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+        [enableCellTextSelection]="true" (rowClicked)="onRowClicked($event)"
+        [suppressDragLeaveHidesColumns]="true" [enableCellTextSelection]="textSelectionEnable"
+        [ensureDomOrder]="textSelectionEnable"
+        [suppressContextMenu]="hideContentMenu" [stopEditingWhenGridLosesFocus]="true"
+        [cacheBlockSize]="agGridOptions?.cacheBlockSize || 20"
+        >
+    </ag-grid-angular>
+</div>

@@ -1,0 +1,44 @@
+<div *ngIf="showPicker && customOptions?.enableTime" class="">
+    <div [owlDateTimeTrigger]="dateTimePicker" class="cursor-pointer datePicker-hover" [class.disabled]="disabled">
+        <span class="" *ngIf="!value">{{customOptions?.placeholder || 'Pick Date'}}</span>
+        <span class="" *ngIf="value">{{value | date : customOptions?.format || 'short'}}</span>
+        <input [(ngModel)]="value" (ngModelChange)="emitChanges()" [owlDateTime]="dateTimePicker" class="datePicker"
+            [disabled]="disabled" [min]="customOptions?.minDate" [max]="customOptions?.maxDate">
+        <owl-date-time #dateTimePicker></owl-date-time>
+    </div>
+</div>
+
+<div *ngIf="showPicker && !customOptions?.enableTime && !customOptions?.rangePicker && customOptions?.pickDate" class="">
+    <div [owlDateTimeTrigger]="dateTimePicker" class="cursor-pointer datePicker-hover center-align-element" [class.disabled]="disabled">
+        <span class="" *ngIf="!value">{{customOptions?.placeholder || 'Pick Date'}}</span>
+        <span class="" [ngStyle]="{'font-size': (fontSize || 15) + 'px'}" *ngIf="value" >{{value | date : customOptions?.format || 'short'}}</span>
+        <input [(ngModel)]="value" (ngModelChange)="emitChanges()" [owlDateTime]="dateTimePicker" class="datePicker"
+            [disabled]="disabled" [min]="customOptions?.minDate" [max]="customOptions?.maxDate">
+        <owl-date-time [pickerType]="'calendar'" #dateTimePicker></owl-date-time>
+    </div>
+</div>
+
+<div *ngIf="showPicker && !customOptions?.enableTime && !customOptions?.rangePicker && !customOptions?.pickDate"
+    class="">
+    <div [owlDateTimeTrigger]="datePicker" class="cursor-pointer datePicker-hover center-align-element" [class.disabled]="disabled">
+        <span class="" *ngIf="!value">{{customOptions?.placeholder || 'Pick Date'}}</span>
+        <span class="" *ngIf="value" >{{value | date : customOptions?.format || 'short'}}</span>
+        <input [(ngModel)]="value" (ngModelChange)="emitChanges()" [owlDateTime]="datePicker" class="datePicker"
+            [disabled]="disabled" [min]="customOptions?.minDate" [max]="customOptions?.maxDate">
+        <owl-date-time #datePicker [pickerType]="'calendar'" [startView]="'multi-years'"
+            (yearSelected)="yearHandler($event,datePicker)"
+            (monthSelected)="monthHandler($event, datePicker)"></owl-date-time>
+    </div>
+</div>
+
+<div *ngIf="showPicker && customOptions?.rangePicker && !customOptions?.pickDate" class="">
+    <div [owlDateTimeTrigger]="datePicker" class="cursor-pointer datePicker-hover" [class.disabled]="disabled">
+        <span class="" *ngIf="!value?.length">{{customOptions?.placeholder || 'Pick Date'}}</span>
+        <span class="" *ngIf="value?.length" >{{value[0] | date : customOptions?.format || 'short'}} -
+            {{value[1] | date : customOptions?.format || 'short'}}</span>
+            <input [(ngModel)]="value" (ngModelChange)="emitData()" [owlDateTime]="datePicker" class="datePicker"
+                [disabled]="disabled" selectMode="range" [min]="customOptions?.minDate" [max]="customOptions?.maxDate">
+            <owl-date-time #datePicker [pickerType]="'calendar'"></owl-date-time>
+    </div>
+</div>
+

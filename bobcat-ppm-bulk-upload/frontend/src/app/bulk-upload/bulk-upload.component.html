@@ -1,0 +1,86 @@
+<div class="row m-0 main-content jsplumb-product-genealogy-component">
+    <div class="col-md-12 pb-0 sub-main-content">
+        <div class="col-2 p-0 mt-2">
+            <label for="filterBy">Filter By</label>
+            <ng-select id="filterBy" placeholder="Select upload type" [items]="listBulkUploadTypes"
+                [(ngModel)]="selectedBulkUploadType" (change)="onBulkUploadTypeChange($event)"
+                bindLabel="label" appendTo="body" 
+                >
+            </ng-select>
+        </div>
+        <kl-ag-grid-server *ngIf="productMasterData?.columnDefs?.length" [gridOptions]="productMasterData"
+            [filterSearch]="true" [cacheBlockSize]="50" (actionEmitter)="externalActionEmitter($event)">
+        </kl-ag-grid-server>
+    </div>
+</div>
+
+
+<!-- Upload Implementation -->
+<button class="btn d-none" id="uploadUnifiedFile" data-toggle="modal" data-target="#uploadUnifiedModelFile"
+    data-backdrop="static" data-keyboard="false"></button>
+<div class="modal fade modalPosition" id="uploadUnifiedModelFile" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload CSV</h5>
+                <button type="button" class="close ml-1" id="closeUnifiedUploadModal"
+                    data-target="#uploadUnifiedModelFile" data-dismiss="modal" aria-label="Close"
+                    (click)="resetCSVUpload()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group border-0">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept=".xlsx" type="file" name="file"
+                            id="fileBlock" #fileInput (click)="fileInput.value = null"
+                            (change)="uploadBlockCsv($event)">
+                        <label class="custom-file-label">{{csvUploadMetaData['fileNameBlock']}}</label>
+                    </div>
+                    <button ngbTooltip="Download Template Format" placement="left"
+                        (click)="downloadTemplate()"><em class="fa fa-download"></em></button>
+                </div>
+                <label class="csv-info mb-1 mt-2" for="">only .xlsx files allowed</label>
+                <br>
+                <label class="csv-info" for="">Max file size is 5MB.</label>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeCSVUploadModel()">Close</button>
+                <button type="submit" class="btn btn-primary"
+                    [disabled]="csvUploadMetaData['fileNameBlock'] === 'Choose file' || csvUploadMetaData['csvUploaded'] || !csvUploadMetaData['isValid']"
+                    (click)="uploadUnifiedFile()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Bulk Upload Implementation -->
+<button type="button" class="invisible" data-toggle="modal" data-target="#uploadedPreviewModal"
+    id="openuploadedPreviewModal" data-backdrop="static" data-keyboard="false"></button>
+<div class="modal right fade" id="uploadedPreviewModal" tabindex="-1" role="dialog"
+    aria-labelledby="_uploadedUnitsPreviewModal">
+    <div class="modal-dialog scale-in-hor-right device-events min-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-600" >Preview {{selectedBulkUploadType?.label}}</h6>
+                <button type="button" class="close" id="closeuploadedPreviewModal"
+                    data-target="#uploadedPreviewModal" aria-label="Close" data-dismiss="modal"
+                    (click)="resetCSVUpload()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            <kl-ag-grid [agGridOptions]="uploadedLookupData" calcHeight="calc(100vh - 354px)">
+            </kl-ag-grid>
+            </div>
+            <div class="modal-footer" style="justify-content: unset !important;">
+                <div class="col-12 px-0">
+                    <button type="button" class="btn btn-secondary float-left" (click)="closePreviewModal()"
+                         >Close</button>
+                    <a href="javascript:void(0)" class="float-right mx-2 pt-2" (click)="reUploadCSVFile()" >Re-Upload
+                        file</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

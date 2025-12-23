@@ -1,0 +1,42 @@
+.upload-icon {
+    transform: rotate(180deg);
+    padding-right: 0;
+}
+
+.download-icon {
+    color: black;
+    font-size: 18px !important;
+    padding-top: 7px;
+    padding-right: 4px;
+    padding-bottom: 4px;
+    cursor: pointer !important;
+    background-color: #fff;
+}
+
+.external-act {
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.select_left {
+    width: 100%;
+    input[type="checkbox"]{
+    width: 14px;
+        height: 14px;
+        margin-top: 0.8rem;
+        margin-left: 0.9rem;
+    }
+    
+    label {
+        font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    input {
+        margin: 0.4rem;
+    }
+}
+
+button {
+    min-width: fit-content;
+}

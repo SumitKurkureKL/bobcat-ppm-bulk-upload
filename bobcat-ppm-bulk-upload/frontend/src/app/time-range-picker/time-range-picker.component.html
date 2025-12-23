@@ -1,0 +1,130 @@
+<ng-container *ngIf="inputModel">
+  <div class="time-picker custom-select-dropdown border" (click)="showDropdownValues($event,p)" popoverClass="{{popoverClass}}" onkeypress=""
+     [ngbPopover]="displayMode === 'popover' ? popContent : null" #p="ngbPopover"  [autoClose]="false" triggers="manual" placement="bottom"  container="body"
+      title="{{inputModel.timeRangeLabel}}">
+      <span [ngStyle]="{'font-size': (fontSize || 15) + 'px'}" id="select_time_range_in_modal" (click)="showDropdownValues($event,p)" onkeypress="">
+        {{ inputModel.timeRangeLabel ? inputModel.timeRangeLabel : 'Select' }}</span>
+      <em class="fa ml-2 mt-1" (click)="showDropdownValues($event,p)"
+        [ngClass]="{'fa-caret-up': showTimeRange, 'fa-caret-down': !showTimeRange}" aria-hidden="true" onkeypress=""></em>
+    </div>
+    <ng-container *ngIf="displayMode !== 'popover'">
+      <ng-container *ngTemplateOutlet="popContent"></ng-container>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-template #popContent>
+    <div class="custom-dropdown-toggle border" (click)="$event.stopPropagation();" onkeypress=""
+      *ngIf="timeRangeList && showTimeRange && timeRangeList.length>0">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-md-10 mb-2">
+            <span class="col-md-4 pl-0" style="display: inline-flex !important;">
+              <input type="radio" [id]="'createUsingTemplate_'" name="createUsing" value="dateTimeRange"
+                [(ngModel)]="inputModel['custom']['pickerType']">
+              <label for="" style="font-size: 1rem;" class="pl-1" >Date Time Range</label>
+            </span>
+            <span class="col-md-3 pl-0" style="display: inline-flex !important;">
+              <input type="radio" id="createUsingScratch" name="createUsing" value="dateRange"
+                [(ngModel)]="inputModel['custom']['pickerType']">
+              <label for="" style="font-size: 1rem;" class="pl-1" >Date Range</label>
+            </span>
+            <span class="col-md-3 shift" style="display: inline-flex !important;">
+              <input type="radio" id="'selectShift_' + tabIndex" name="createUsing" value="shift"
+                [(ngModel)]="inputModel['custom']['pickerType']" (change)="onRadioButtonChange('shift')">
+              <label for="" class="pl-1" style="font-size: 1rem;" >Select Shift</label>
+            </span>
+          </div>
+          <div class="row col-12 m-0" *ngIf="inputModel['custom']['pickerType'] === 'shift'">
+            <div class="col-6 pl-4">
+              <div class="form-group grid_layout">
+                <label for="" class="control-label" >Date</label>
+                <input class="form-control" placeholder="Date :"  [(ngModel)]="inputModel['custom']['selectedDate']"
+                [owlDateTimeTrigger]="selectedDate" [owlDateTime]="selectedDate" (ngModelChange)="onDateChangeForShift()">
+              <owl-date-time #selectedDate [pickerType]="'calendar'"></owl-date-time>
+                <div class="form-group pt-3">
+                  <label for="" class="control-label" >Shift Plan</label>
+                  <ng-select [items]="metaData.shiftsList" id="selected_shift_for_shift_filter" [(ngModel)]="inputModel['custom']['selectedShift']" bindLabel="shift_name"
+                    (ngModelChange)="inputModel['custom']['shiftActivity'] = null" placeholder="Shift" [clearable]="false"
+                    [loading]="metaData['shiftsLoading']" >
+                  </ng-select>
+                </div>
+                <div class="form-group pt-2" *ngIf="inputModel['custom']['selectedShift']">
+                  <label for="" class="control-label" >Shift</label>
+                  <ng-select [multiple]="true" bindLabel="activity_name" id="shiftActivity_for_shift_filter" [(ngModel)]="inputModel['custom']['shiftActivity']"
+                    placeholder="Activity" [items]="inputModel['custom']['selectedShift']['activities']" [clearable]="false"
+                    [closeOnSelect]="false" >
+                    <ng-template ng-header-tmp>
+                      <div class="ml-4">
+                        <button class="btn btn-link py-0 px-1" id="select_all_for_shift_filter"
+                          (click)="inputModel['custom']['shiftActivity'] = inputModel['custom']['selectedShift']['activities'] || []" >Select
+                          All</button>
+                        <button class="btn btn-link py-0 px-1" id="clear_all_for_shift_filter" (click)="inputModel['custom']['shiftActivity'] = []" >Clear All</button>
+                      </div>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                      <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"
+                        [ngModelOptions]="{standalone: true}" />
+                      {{item.activity_name}}
+                    </ng-template>
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                      <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                        <span class="ng-value-icon left" id="close_for_shift_filter" (click)="clear(item)" aria-hidden="true"
+                          *ngIf="!item['disabled']" onkeypress="">×</span>
+                        <span class="ng-value-label">{{item?.['activity_name']}}</span>
+                      </div>
+                      <div class="ng-value badge-value" *ngIf="items.length > 2" style="right: 40px !important;">
+                        <span class="ng-value-label">+{{items.length - 2}}</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+              <div class="col-6  px-0 pt-2 pl-6 ">
+                <button (click)="applyFilters(inputModel['custom']['pickerType'])" id="time_range_picker_for_shift_apply" class="btn btn-primary col-6 btn-lg rounded-0" >Apply
+                </button>
+              </div>
+          </div>
+        <div class="row ml-1" *ngIf="inputModel['custom']['pickerType'] === 'dateRange'">
+          <h6 class="col-12" >Custom Range</h6>
+          <div class="col-md-5 form-group">
+            <label for="" class="control-label" >From</label>
+            <kl-date-picker [(value)]="inputModel['custom']['fromDisp']" [customOptions]="dateRangeSettings"></kl-date-picker>
+          </div>
+          <div class="col-md-5 form-group">
+            <label for="" class="control-label" >To</label>
+            <kl-date-picker [(value)]="inputModel['custom']['toDisp']" [customOptions]="dateRangeSettings"></kl-date-picker>
+          </div>
+          <div class="col-md-2 form-group">
+            <label for="" class="control-label"><span class="d-none">Time Range</span></label>
+            <button type="button" (click)="applyCustomRange()" id="time_range_picker_for_date_range" class="btn btn-sm btn-primary mt-4" >Apply</button>
+          </div>
+        </div>
+        <div class="row ml-1" *ngIf="inputModel['custom']['pickerType'] === 'dateTimeRange'">
+          <h6 class="col-12" >Custom Range</h6>
+          <div class="col-md-5 form-group">
+            <label for="" class="control-label" >From</label>
+            <kl-date-picker [(value)]="inputModel['custom']['fromDisp']" [customOptions]="calendarSettings"></kl-date-picker>
+          </div>
+          <div class="col-md-5 form-group">
+            <label for="" class="control-label" >To</label>
+            <kl-date-picker [(value)]="inputModel['custom']['toDisp']" [customOptions]="calendarSettings"></kl-date-picker>
+          </div>
+          <div class="col-md-2 form-group">
+            <label for="" class="control-label"><span class="d-none">Time Range</span></label>
+            <button type="button" (click)="applyCustomRange()" id="time_range_picker_for_date_time_range" class="btn btn-sm btn-primary mt-4" >Apply</button>
+          </div>
+        </div>
+      </div>
+        <div class="row mt-2" *ngIf="inputModel['custom']['pickerType'] !== 'shift'">
+          <h6 class="col-12" >Time Range</h6>
+          <div class="col-md-3 list" *ngFor="let section of timeRangeList">
+            <div *ngFor="let item of section.list">
+              <label for="" class="value" id="{{'time_range_' + item.value}}" (click)="selectTimeRange(item)" onkeypress="">{{ item.label }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>

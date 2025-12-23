@@ -1,0 +1,142 @@
+.disabled-icon {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.min-width-slider {
+    min-width: 93% !important;
+}
+
+.modal-height {
+    height: 85% !important;
+}
+
+.footer-height {
+    margin-bottom: calc(100vh - 712px);
+}
+
+.pretty {
+    margin-right: 0;
+}
+
+.lookup-data-config {
+    .fa-arrow-right {
+        padding-top: 35px;
+    }
+}
+
+.properties-table {
+
+    th,
+    td {
+        text-align: center;
+        min-width: 140px;
+    }
+}
+
+.disabledText {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.min-width {
+    min-width: 70%;
+}
+
+.icons-explorer-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+    .card-header .accicon {
+        font-size: 20px;
+        width: 1.2em;
+    }
+
+    .card-header {
+        cursor: pointer;
+        border-bottom: none;
+        padding: 0.25rem 0.5rem;
+        background: #f3f3f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-header:not(.collapsed) .rotate-icon {
+        transform: rotate(180deg);
+    }
+
+    .icons-layout-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .icons-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+        gap: 0.5rem;
+
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transform-origin: 65% 75%;
+            transition: transform .5s, filter .5s ease-out;
+
+            &:hover {
+                background-color: #cee9fe;
+                border-radius: 10px;
+                transform: scale(1.1);
+            }
+
+            .icon {
+                max-width: 2rem;
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+        }
+
+        .selected {
+            border: 2px solid #8ea6ed;
+            background-color: #d6e8f6;
+            border-radius: 10px;
+        }
+    }
+
+    .icons-layout>div:first-child:last-child {
+        max-width: 120px;
+    }
+}
+
+.parameter-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-inline: 28px;
+    padding-bottom: 22px;
+}
+
+.modal-header {
+    padding: 4px 0 5px 0px !important;
+}
+
+.modal-content {
+    padding: 8px 16px 8px 16px;
+}
+
+.modal-footer {
+    align-items: center !important;
+}

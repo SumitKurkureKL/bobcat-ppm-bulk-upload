@@ -1,0 +1,12 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+httpx==0.25.1
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+pandas~=2.3.3
+numpy~=2.4.0
+openpyxl~=3.1.5
+python-multipart>=0.0.5
+psycopg2-binary~=2.9.11
+PyJWT==2.10.1

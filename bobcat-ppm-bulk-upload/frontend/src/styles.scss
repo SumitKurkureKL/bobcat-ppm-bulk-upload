@@ -64,3 +64,12 @@
 .ng-select .ng-select-container .ng-value-container {
   padding-left: 0px !important;
 }
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 6px 10px;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected, .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    color: #333;
+    background-color: #afe0f8 !important;
+}

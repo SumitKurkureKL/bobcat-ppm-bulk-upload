@@ -1,7 +1,7 @@
 <div class="row m-0 main-content jsplumb-product-genealogy-component">
     <div class="col-md-12 pb-0 sub-main-content">
         <div class="col-2 p-0 mt-2">
-            <label for="filterBy">Filter By</label>
+            <label class="mb-2" for="filterBy">Filter By</label>
             <ng-select id="filterBy" placeholder="Select upload type" [items]="listBulkUploadTypes"
                 [(ngModel)]="selectedBulkUploadType" (change)="onBulkUploadTypeChange($event)"
                 bindLabel="label" appendTo="body" 

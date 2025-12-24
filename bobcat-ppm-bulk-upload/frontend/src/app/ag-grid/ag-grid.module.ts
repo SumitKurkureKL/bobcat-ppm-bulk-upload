@@ -33,7 +33,6 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
-    AgGridComponent,
     BtnCellRendererComponent,
     SelectionFilterComponent,
     StatusBarComponent,

@@ -70,6 +70,7 @@ export class HttpLayerService {
       const projectDetails:any = this._auth.getProjectDetails();
       const userDetails:any  = this._auth.getUserDetails();
       data['project_type'] = data.project_type || projectDetails['project_type'];
+      data['offline'] = { timestamp: Date.now() };
       data['tz'] ??= projectDetails['tz'];
       data['project_id'] = projectDetails?.project_id;
       data['language'] = localStorage.getItem('lang') || 'en';

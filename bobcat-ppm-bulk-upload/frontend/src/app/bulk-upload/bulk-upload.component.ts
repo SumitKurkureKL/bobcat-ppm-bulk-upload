@@ -33,7 +33,7 @@ export class BulkUploadComponent implements OnInit {
   public subscription: Subscription;
   public productMasterData: any = {
     dataMethod: 'getProcessListData',
-    dataURL : '',
+    dataURL : 'model_mgmt/body',
     columnDefs: [],
     rowData: [],
     height: 'calc(100vh - 233px)',
@@ -173,7 +173,8 @@ export class BulkUploadComponent implements OnInit {
         payload['pageType'] = this.additionalData.page_type;
       }
       this.productMasterData.columnDefs = [];
-      const url = 'model_mgmt/header' + '/' + payload.type + (payload['schema'] ? '?schema=' + payload['schema'] : '');
+      const baseUrl = window.location.origin + '/ppm_translator/proxy';
+      const url = baseUrl + '/' + payload.type + (payload['schema'] ? '?schema=' + payload['schema'] : '');
       this.http.getWithRequestJson(url,payload).subscribe({
         next: (resp: any) => {
           if (resp?.['status'] === 'success') {

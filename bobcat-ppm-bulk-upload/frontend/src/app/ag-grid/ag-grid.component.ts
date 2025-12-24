@@ -139,7 +139,8 @@ export class AgGridComponent {
           payload = { ...payload, ...self.agGridOptions.payload };
         }
         self.gridApi.showLoadingOverlay();
-        self.httplayer.post(self.agGridOptions.dataURL, payload).pipe(takeUntil(this.destroy$)).subscribe((resp: any) => {
+        const baseUrl = window.location.origin + '/' + self.agGridOptions.dataURL + '/' + self.agGridOptions.defaultPayload.type;
+        self.httplayer.getWithRequestJson(baseUrl, payload).pipe(takeUntil(this.destroy$)).subscribe((resp: any) => {
           if (resp && resp.status === 'success') {
             let rowsThisPage = [];
             if (resp.data && resp.data.bodyContent) {
